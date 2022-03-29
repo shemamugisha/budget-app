@@ -1,13 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import CssBaseline from "@mui/material/CssBaseline";
-import "./index.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./styles/index.css";
 import App from "./App";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <CssBaseline />
-    <App />
-  </React.StrictMode>,
-  document.getElementById("root")
+    <React.StrictMode>
+        <App />
+    </React.StrictMode>,
+    document.getElementById("root"),
 );
