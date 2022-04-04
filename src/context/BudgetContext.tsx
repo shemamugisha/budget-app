@@ -1,15 +1,14 @@
-import { FC, createContext, useState, useContext } from "react";
+import { FC, createContext, useContext } from "react";
 import { BudgetContextState, IBudget, IExpense } from "../types";
 import { useLocalStorage } from "../hooks";
-
 export const initialState: BudgetContextState = {
-  expenses: [{ id: "", description: "", amount: "" }],
-  budgets: [{ max: 1000, name: "Savings", id: "" }],
+  expenses: [{ id: "ww$ww", description: "", amount: 0 }],
+  budgets: [{ max: 1000, name: "Savings", id: "iii2$" }],
   addExpense: () => {},
   addBudget: () => {},
   deleteBudget: () => {},
   deleteExpense: () => {},
-  getBudgetExpense: () => {},
+  getBudgetExpense: () => [],
 };
 
 export const BudgetContext = createContext<BudgetContextState>(initialState);
@@ -23,7 +22,8 @@ export const UNCATEGORIZED_BUDGET_ID = "Uncategorized";
 export const BudgetProvider: FC = ({ children }) => {
   const [expenses, setExpenses] = useLocalStorage("expense", initialState.expenses);
 
-  const [budgets, setBudgets] = useState(initialState.budgets);
+  // const [expenses, setExpenses] = useState(initialState.expenses);
+  const [budgets, setBudgets] = useLocalStorage("budgets", initialState.budgets);
 
   const addExpense = (newExpense: IExpense) => {
     const expenseObj: IExpense = {
@@ -47,7 +47,7 @@ export const BudgetProvider: FC = ({ children }) => {
     setBudgets([...budgets, BudgetObj]);
   };
 
-  const getBudgetExpense = (budgetId: string) => expenses.filter((expense) => expense.id === budgetId);
+  const getBudgetExpense = (budgetId: string) => expenses.filter((expense) => budgetId === expense.id);
 
   const deleteBudget = (id: string) => {
     setExpenses((prevExpenses) => {

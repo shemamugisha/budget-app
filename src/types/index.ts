@@ -1,7 +1,7 @@
 export interface IExpense {
   id: string;
   description: string;
-  amount: string;
+  amount: number;
 }
 
 export interface IBudget {
@@ -13,7 +13,7 @@ export interface IBudget {
 export type BudgetContextState = {
   expenses: IExpense[];
   budgets: IBudget[];
-  getBudgetExpense: (id: string) => void;
+  getBudgetExpense: (id: string) => IExpense[];
   addExpense: (expense: IExpense) => void;
   addBudget: (budget: IBudget) => void;
   deleteBudget: (id: string) => void;
