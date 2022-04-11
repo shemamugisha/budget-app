@@ -2,6 +2,7 @@ export interface IExpense {
   id: string;
   description: string;
   amount: number;
+  budgetId: string;
 }
 
 export interface IBudget {
