@@ -1,14 +1,15 @@
 import { FC, useState } from "react";
 import { Container, Button, Stack } from "react-bootstrap";
-import { BudgetCard, AddBudget, AddExpense } from "./components";
+import { BudgetCard, AddBudget, AddExpense, ViewExpense } from "./components";
 import { useBudget } from "./context/BudgetContext";
 
 const App: FC = () => {
   const [showAddBudgetModal, setShowAddBudgetModal] = useState(false);
   const [showAddExpenseModal, setShowAddExpenseModal] = useState(false);
-  const [addExpenseBudgetId, setAddExpenseBudgetId] = useState<any>();
+  const [showViewExpenseModal, setViewExpenseModal] = useState<string | null>(null);
+  const [addExpenseBudgetId, setAddExpenseBudgetId] = useState("");
 
-  const { budgets, expenses, getBudgetExpense } = useBudget();
+  const { budgets, getBudgetExpense } = useBudget();
 
   const openExpenseModal = (budgetId: string) => {
     setShowAddExpenseModal(true);
@@ -49,6 +50,7 @@ const App: FC = () => {
                 name={name}
                 amount={amount}
                 max={max}
+                viewExpenseClick={() => setViewExpenseModal(id)}
               />
             );
           })}
@@ -59,6 +61,7 @@ const App: FC = () => {
         handleClose={() => setShowAddExpenseModal(false)}
         defaultBudgetId={addExpenseBudgetId}
       />
+      <ViewExpense budgetId={showViewExpenseModal} handleClose={() => setViewExpenseModal(null)} />
     </Container>
   );
 };
